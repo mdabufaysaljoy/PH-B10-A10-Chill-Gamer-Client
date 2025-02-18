@@ -1,9 +1,12 @@
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 function Register() {
-  const { loginUser, LoginWithGoogle } = useContext(AuthContext);
+  const { loginUser, LoginWithGoogle, user } = useContext(AuthContext);
+  if (user) {
+    return <Navigate to="/" />;
+   }
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();

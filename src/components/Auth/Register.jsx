@@ -1,51 +1,59 @@
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 function Register() {
-  const { createUser, LoginWithGoogle } = useContext(AuthContext);
+  const { createUser, LoginWithGoogle, updateProfile, user } =
+    useContext(AuthContext);
+  if (user) {
+    return <Navigate to="/" />;
+  }
   const navigate = useNavigate();
 function validatePassword(password) {
   const hasUpperCase = /[A-Z]/.test(password);
   const hasLowerCase = /[a-z]/.test(password);
   const isValidLength = password.length >= 6;
-
   if (!hasUpperCase) {
     toast.error("Password must contain at least one uppercase letter.");
     return false;
   }
-
   if (!hasLowerCase) {
     toast.error("Password must contain at least one lowercase letter.");
     return false;
   }
-
   if (!isValidLength) {
     toast.error("Password must be at least 6 characters long.");
     return false;
   }
-
   return true;
 }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const name = event.target.name.value;
-    const email = event.target.email.value;
-    const password = event.target.password.value;
+    const form = event.target;
+    const name = form.name.value;
+    const photoURL = form.photoURL.value;
+    const email = form.email.value;
+    const password = form.password.value;
     if (validatePassword(password)) {
          createUser(email, password)
            .then((result) => {
-             toast.success("Register Successfully", {
-               position: "top-right",
-               autoClose: 3000,
-               hideProgressBar: false,
-               closeOnClick: true,
-               pauseOnHover: true,
-               draggable: true,
-               progress: undefined,
-             });
-             navigate("/");
+           updateProfile(result.user, {
+             displayName: name,
+             photoURL: photoURL,
+           })
+             console.log(user);
+           }).then(() => {
+               toast.success("Register Successfully", {
+                 position: "top-right",
+                 autoClose: 3000,
+                 hideProgressBar: false,
+                 closeOnClick: true,
+                 pauseOnHover: true,
+                 draggable: true,
+                 progress: undefined,
+               });
+               navigate("/");
            })
            .catch((error) => {
              toast.error(error.message, {
