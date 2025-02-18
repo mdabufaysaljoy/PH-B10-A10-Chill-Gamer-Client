@@ -16,9 +16,12 @@ const Home = () => {
   const [loading, setLoading] = React.useState(true);
   const navigate = useNavigate();
   React.useEffect(() => {
-    fetch("http://localhost:5000/top-rated-games")
+    fetch("https://ph-b10-a10-chill-gamer-server.onrender.com/top-rated-games")
       .then((res) => res.json())
-      .then((data) =>{ setTopRatedGames(data); setLoading(false);});
+      .then((data) => {
+        setTopRatedGames(data);
+        setLoading(false);
+      });
   }, []);
     return (
       <div className="py-10 px-4">

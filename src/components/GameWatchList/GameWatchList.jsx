@@ -10,10 +10,12 @@ const GameWatchList = () => {
   const navigate = useNavigate();
   React.useEffect(() => {
     user &&
-      fetch(`http://localhost:5000/watchlist?email=${user?.email}`)
+      fetch(
+        `https://ph-b10-a10-chill-gamer-server.onrender.com/watchlist?email=${user?.email}`
+      )
         .then((res) => res.json())
         .then((myWatchlist) => {
-          fetch(`http://localhost:5000/reviews`)
+          fetch(`https://ph-b10-a10-chill-gamer-server.onrender.com/reviews`)
             .then((res) => res.json())
             .then((allReviews) => {
               const filteredData = allReviews.filter((review) => {

@@ -6,7 +6,7 @@ const AllReviews = () => {
   const [loading, setLoading] = React.useState(true);
   const [AllReviews, setAllReviews] = React.useState([]);
   React.useEffect(() => {
-    fetch("http://localhost:5000/reviews")
+    fetch("https://ph-b10-a10-chill-gamer-server.onrender.com/reviews")
       .then((res) => res.json())
       .then((data) => {
         setAllReviews(data);

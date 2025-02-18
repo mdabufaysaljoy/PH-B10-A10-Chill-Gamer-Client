@@ -11,7 +11,7 @@ const AddReview = () => {
     const review = Object.fromEntries(formData.entries());
     review.ratings = Number(review.ratings);
 
-    fetch("http://localhost:5000/add-review", {
+    fetch("https://ph-b10-a10-chill-gamer-server.onrender.com/add-review", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -20,9 +20,9 @@ const AddReview = () => {
     })
       .then((res) => res.json())
       .then((response) => {
-      if(response.insertedId){
-        toast.success("Review Added Successfully");
-      } 
+        if (response.insertedId) {
+          toast.success("Review Added Successfully");
+        }
         event.target.reset();
       })
       .catch((error) => {

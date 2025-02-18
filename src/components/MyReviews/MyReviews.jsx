@@ -12,7 +12,7 @@ const MyReviews = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   React.useEffect(() => {
-    const url = `http://localhost:5000/my-reviews?email=${user?.email}`;
+    const url = `https://ph-b10-a10-chill-gamer-server.onrender.com/my-reviews?email=${user?.email}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
@@ -34,9 +34,12 @@ const MyReviews = () => {
       "Are you sure you want to delete this review?"
     );
     if (confirmDelete) {
-      fetch(`http://localhost:5000/delete-review/${review._id}`, {
-        method: "DELETE",
-      })
+      fetch(
+        `https://ph-b10-a10-chill-gamer-server.onrender.com/delete-review/${review._id}`,
+        {
+          method: "DELETE",
+        }
+      )
         .then((res) => {
           if (res.ok) {
             toast.warning("Review Deleted Successfully");
@@ -62,11 +65,14 @@ const MyReviews = () => {
       name: user?.displayName,
     };
 
-    fetch(`http://localhost:5000/update-review/${updatedReview.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedReview),
-    })
+    fetch(
+      `https://ph-b10-a10-chill-gamer-server.onrender.com/update-review/${updatedReview.id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedReview),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
